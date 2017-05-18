@@ -52,6 +52,14 @@
 
         // サンプリング周波数44.1kHz，モノラルとして初期化する
         var player = new WebkitPlayer( samplerate, 1 );
+        document.getElementById( 'wave0' ).addEventListener( "click", function() {
+            data = new Array( samplerate );
+            var freq = 100;
+            var k = 2 * Math.PI * freq / samplerate;
+            for( var i=0; i<data.length; i++ ){
+                data[i] = Math.sin(k * i);
+            }
+        });
 
         // wave1が押された場合に440Hzのsin波を生成する
         document.getElementById( 'wave1' ).addEventListener( "click", function() {
@@ -156,6 +164,7 @@
   <body>
     <h1>グラフ描画のサンプル</h1>
     <form>
+      <input type="button" value="100Hz" id="wave0">
       <input type="button" value="440Hz" id="wave1">
       <input type="button" value="880Hz" id="wave2">
       <input type="button" value="440Hz + 880Hz" id="wave3">
