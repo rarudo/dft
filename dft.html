@@ -14,6 +14,7 @@
         var area = 1;           // 表示領域（全体の先頭5%を表示）
         var skip = 2;           // グラフ表示時の間引き数
         var dftarea = 0.13;      // DFTの演算・表示領域を先頭100サンプル程度に調整
+        var diffX= 10;      // 仮装座標の開始位置をずらす
 
         var waves = function(freq, amp, member, sec ) {
           // 基本周波数と，含まれる周波数スペクトラムを受け取り，波形を合成するメソッド
@@ -54,8 +55,8 @@
         var drawArrowhead = function(vc1){
             vc1.line( 0, 1, 5, 0.8 );
             vc1.line( 0, 1, -5, 0.8 );
-            vc1.line( vc1._scaleWidth-10, 0, vc1._scaleWidth-20, 0.1 );
-            vc1.line( vc1._scaleWidth-10, 0, vc1._scaleWidth-20, -0.1 );
+            vc1.line( vc1._scaleWidth-diffX, 0, vc1._scaleWidth-20, 0.1 );
+            vc1.line( vc1._scaleWidth-diffX, 0, vc1._scaleWidth-20, -0.1 );
         }
 
         // サンプリング周波数44.1kHz，モノラルとして初期化する
@@ -112,7 +113,7 @@
           vc1.cls();  // 描画内容の消去
 
           // X軸とY軸の描画
-          vc1.scale( -10, 1, plotnumber +10, -2 );
+          vc1.scale( -diffX, 1, plotnumber + diffX, -2 );
           vc1.beginPath();  // 描画開始の宣言
           vc1.line( 0, 0, data.length, 0 );
           vc1.line( 0, -1, 0, 1 );
