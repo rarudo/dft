@@ -59,7 +59,18 @@
             vc1.line( vc1._scaleWidth-diffX, 0, vc1._scaleWidth-20, -0.1 );
         }
 
-        // サンプリング周波数44.1kHz，モノラルとして初期化する
+        //目盛りを描写する
+        var drawScale= function(vc1){
+            //x軸の目盛りを設定
+            for(var i = 0; i < data.length; i +=10){
+                vc1.line(i,0.02,i,-0.02)
+            }
+            //y軸の目盛りを設定
+            for(i = 0; i < 1; i +=0.1){
+                vc1.line(-1,i,1,i)
+            }
+        }
+        // wave0が押された場合に100Hzのsin波を生成する
         var player = new WebkitPlayer( samplerate, 1 );
         document.getElementById( 'wave0' ).addEventListener( "click", function() {
             data = new Array( samplerate );
@@ -128,7 +139,10 @@
           for( var i=0; i<plotnumber; i+=skip ) {
             vc1.lineto( i, data[i] );
           }
+          //鏃を描写
           drawArrowhead(vc1);
+          //目盛りを描写
+          drawScale(vc1);
           vc1.stroke(); // 描画
         });
 
