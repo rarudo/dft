@@ -53,10 +53,11 @@
 
         //鏃を描写する
         var drawArrowhead = function(vc1){
-            vc1.line( 0, 1, 5, 0.8 );
-            vc1.line( 0, 1, -5, 0.8 );
-            vc1.line( vc1._scaleWidth-diffX, 0, vc1._scaleWidth-20, 0.1 );
-            vc1.line( vc1._scaleWidth-diffX, 0, vc1._scaleWidth-20, -0.1 );
+            var arrowWidth = vc1._scaleWidth * 0.1;
+            vc1.line( 0, 1, vc1._scaleWidth*0.01, 0.8 );
+            vc1.line( 0, 1, -vc1._scaleWidth*0.01, 0.8 );
+            vc1.line( vc1._scaleWidth-diffX, 0, vc1._scaleWidth-arrowWidth, 0.1 );
+            vc1.line( vc1._scaleWidth-diffX, 0, vc1._scaleWidth-arrowWidth, -0.1 );
         }
 
         //目盛りを描写する
@@ -66,7 +67,7 @@
                 vc1.line(i,0.02,i,-0.02)
             }
             //y軸の目盛りを設定
-            for(i = 0; i < 1; i +=0.1){
+            for(i = -1; i < 1; i +=0.1){
                 vc1.line(-1,i,1,i)
             }
         }
@@ -159,7 +160,7 @@
           vc2.cls();  // 描画内容の消去
 
           // X軸とY軸の描画
-          vc2.scale( 0, 1, data2.length, -2 );
+          vc2.scale( 0-diffX * 0.5, 1, data2.length+diffX, -2 );
           vc2.beginPath();  // 描画開始の宣言
           vc2.line( 0, 0, data2.length, 0 );
           vc2.line( 0, -1, 0, 1 );
@@ -174,6 +175,8 @@
             vc2.rect( i, 0, i+1, data2[i] );    // DFTのグラフ描画
             //console.log( i + ":" + data2[i] );          // 演算結果をコンソールに表示
           }
+          drawScale(vc2);
+          drawArrowhead(vc2);
           vc2.stroke(); // 描画
           console.log( data2.length );
         });
